@@ -8,5 +8,5 @@ import it.dacarr.students.entity.Student;
 public interface StudentService {
 
 	List<Student> getAllStudent();
-	
+	Student saveStudent(Student s);
 }
