@@ -42,7 +42,7 @@ public class StudentController {
 	}
 	// handle update request
 
-	@GetMapping("/student/edit/{id}")
+	@GetMapping("/students/edit/{id}")
 	public String editStudentForm(@PathVariable Long id, Model model) {
 		model.addAttribute("student", studentService.findById(id));
 		return "edit_student";
@@ -59,6 +59,13 @@ public class StudentController {
 		// save the new student
 		studentService.updateStudent(st);
 
+		return "redirect:/students";
+	}
+	
+	//delete a student
+	@GetMapping("students/delete/{id}")
+	public String deleteStudent(@PathVariable Long id) {
+		studentService.deleteStudent(id);
 		return "redirect:/students";
 	}
 
