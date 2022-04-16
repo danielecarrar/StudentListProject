@@ -1,6 +1,7 @@
 package it.dacarr.students.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,16 @@ public class StudentServiceImpl implements StudentService {
 	public Student saveStudent(Student s) {
 		return studentRepo.save(s);
 		 
+	}
+
+	@Override
+	public Student findById(Long id) {
+		return studentRepo.findById(id).get();
+	}
+
+	@Override
+	public Student updateStudent(Student s) {
+		return studentRepo.save(s);
 	}
 
 }
