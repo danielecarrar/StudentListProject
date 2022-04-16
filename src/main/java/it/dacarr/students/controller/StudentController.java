@@ -18,34 +18,48 @@ public class StudentController {
 	public StudentController(StudentService studentService) {
 		this.studentService = studentService;
 	}
-	
-	//handler method to handle list students and return model and view
+
+	// handler method to handle list students and return model and view
 	@GetMapping("/students")
-	public String listStudents(Model model){
+	public String listStudents(Model model) {
 		model.addAttribute("students", studentService.getAllStudent());
 		return "students";
 	}
-	
+
 	@GetMapping("/students/new")
 	public String createStudentForm(Model model) {
-		//create student obj to hold student form data
+		// create student obj to hold student form data
 		Student s1 = new Student();
 		model.addAttribute("student", s1);
 		return "create_student";
 	}
-	
-	//handle the form request
+
+	// handle the form request
 	@PostMapping("/students")
 	public String saveStudent(@ModelAttribute("student") Student s) {
 		studentService.saveStudent(s);
 		return "redirect:/students";
 	}
-	//handle update request
-	
+	// handle update request
+
 	@GetMapping("/student/edit/{id}")
 	public String editStudentForm(@PathVariable Long id, Model model) {
 		model.addAttribute("student", studentService.findById(id));
 		return "edit_student";
 	}
-	
+
+	@PostMapping("/students/{id}")
+	public String updateStudent(@PathVariable Long id, @ModelAttribute("student") Student student, Model model) {
+		// retrieve by id
+		Student st = studentService.findById(id);
+		st.setId(id);
+		st.setName(student.getName());
+		st.setSurname(student.getSurname());
+		st.setEmail(student.getEmail());
+		// save the new student
+		studentService.updateStudent(st);
+
+		return "redirect:/students";
+	}
+
 }
